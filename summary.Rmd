@@ -13,9 +13,15 @@ title: ''
 
 </center>
 
+<<<<<<< HEAD
+=======
+<br> 
+<center><img src="image/timeline_new.PNG" alt="timeline" ></center>
+>>>>>>> ff88c75aebce6cdcdef10ffe82379e64ddcba48a
 <br>
 
 <center> <img src="image/more.png" alt="skills" style="width:25%; border:0px solid"> </center> 
+<<<<<<< HEAD
 
 
 <center>
@@ -27,4 +33,8 @@ title: ''
 
 
 
+=======
+<br>
+<img src="image/overview2.PNG" alt="skills" >
+>>>>>>> ff88c75aebce6cdcdef10ffe82379e64ddcba48a
 <br>
