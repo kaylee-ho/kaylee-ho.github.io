@@ -8,12 +8,12 @@ title: ''
 
 
 <br> 
-<center><img src="image/timeline_new.png" alt="timeline" style="width:100%; border:0px solid"></center>
+<center><img src="image/timeline_new.PNG" alt="timeline" style="width:100%; border:0px solid"></center>
 <br>
 
 <br><br>
 
 <center> <img src="image/more.png" alt="skills" style="width:25%; border:0px solid"> </center> 
 
-<img src="image/overview2.png" alt="skills" style="width:80%; border:0px solid">
+<img src="image/overview2.PNG" alt="skills" style="width:80%; border:0px solid">
 <br>
