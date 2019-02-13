@@ -1,0 +1,23 @@
+---
+title: "Software"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+---
+
+<link rel="stylesheet" href="academicons/css/academicons.min.css"/>
+
+<br>
+
+### 'VCERGM'
+
+The R package `VCERGM` implements varying-coefficient random graph models (VCERGMs) on dynamic networks. Available on [github](https://github.com/jihuilee/VCERGM).
+
+<center>
+<br><img src="image/voting.gif" alt="congressgif" style="width:40%; border:0px solid"><br>
+</center>
+
+### 'DigiPheno'
+
+The R package `DigiPheno` preprocesses and visualizes smartphone or wearable device data. It also provides functional data analysis approaches to analyze the data. Available on [github](https://github.com/jihuilee/DigiPheno).
