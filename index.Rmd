@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 ---
 title: <center> Kaylee Ho, M.S. </center>
 ---
@@ -22,6 +21,8 @@ I am a Research Biostatistician in the [Division of Biostatistics & Epidemiology
 
 
 I received a MS in biostatistics from [Icahn School of Medicine at Mount Sinai](https://icahn.mssm.edu/about/departments/population-health/research/biostatistics) in 2018. Prior to that, I received a BA in Economics from [University of Southern California](https://www.usc.edu/) in 2015.
+
+<br>
 
 In my free time, I like to play and coach table tennis.
 
@@ -37,41 +38,3 @@ My full CV is available [here](download/Kaylee_Ho_CV.pdf).
 Office: 402 East 67th Street, New York, NY 10065  
 Email: [kah4001@med.cornell.edu](mailto:kah4001@med.cornell.edu) 
 GitHub: [github.com/kaylee-ho/](http://github.com/kaylee-ho/)
-=======
----
-title: <center> Kaylee Ho, M.S. </center>
----
-
-<center> Research Biostatistician at Weill Cornell Medical College </center>
-
-<link rel="stylesheet" href="styles.css" type="text/css">
-<link rel="stylesheet" href="academicons/css/academicons.min.css"/>
-<link rel="icon2" href="/image/icon2.png">
-
-<br>
-
-<center><img src="image/headshot.jpg" alt="profile" style="width:20%; border:0px solid"></center>
-
-<br><br>
-
-#### About
-
-
-I am a Research Biostatistician in the [Division of Biostatistics & Epidemiology](http://hpr.weill.cornell.edu/divisions/biostatistics/) of Department of Healthcare Policy & Research at Weill Cornell Medicine.
-
-
-I received a MS in biostatistics from [Icahn School of Medicine at Mount Sinai](https://icahn.mssm.edu/about/departments/population-health/research/biostatistics) in 2018. Prior to that, I received a BA in Economics from [University of Southern California](https://www.usc.edu/) in 2015.
-
-<br>
-
-#### Curriculum Vitae
-My full CV is available [here](download/Kaylee_Ho_CV.pdf).
-
-<br>
-
-#### Contact Information
-
-Office: 402 East 67th Street, New York, NY 10065  
-Email: [kah4001@med.cornell.edu](mailto:kah4001@med.cornell.edu) 
-GitHub: [github.com/kaylee-ho/](http://github.com/kaylee-ho/)
->>>>>>> ff88c75aebce6cdcdef10ffe82379e64ddcba48a
