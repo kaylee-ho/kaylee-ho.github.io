@@ -14,6 +14,6 @@ title: ''
 <br><br>
 
 <center> <img src="image/more.png" alt="skills" style="width:25%; border:0px solid"> </center> 
-
+<br>
 <img src="image/overview2.PNG" alt="skills" >
 <br>
