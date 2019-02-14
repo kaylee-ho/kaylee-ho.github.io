@@ -97,7 +97,9 @@ For our secondary analysis, the relationship between 90-day readmission and disc
 
 <br>
 
-Other projects I am currently working on are:
+Other (selected) projects I am currently working on are:
+
+
 
 ##### 1. ShangRing vs. Mogen Clamp for Early Infant Male Circumcision in sub-Saharan Africa
 
@@ -105,7 +107,7 @@ Other projects I am currently working on are:
 
 Conducting initial and interim analysis for the pilot phase of this clinical trial. The goal is to determine if the AE rate using the ShangRing is not inferior to that for the control i.e. the Mogen clamp. The anticipated moderate/severe AE rate is 2%.  We anticipate that the benefits of ShangRing in terms of convenience and acceptability will allow a non-inferiority margin of 2% (absolute). A formal interim analysis was conducted after the first 100 circumcisions have been completed in the pilot phase. Study recruitment will be suspended for the interim analysis. The analysis will be for futility only. If after 100 infants in the pilot phase and followed for 42 days it is found that the (non-inferiority) p-value is 0.97 or greater (corresponding to a z-statistic of 1.91 or greater) the trial will be recommended to stop due to futility. 
 
-
+<br>
 
 ##### 2. ROMA Trial
 
