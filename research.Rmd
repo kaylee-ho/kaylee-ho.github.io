@@ -46,7 +46,7 @@ This cross-sectional secondary analysis study included individuals from the 2007
 
 ##### 2.  Data Analysis of Total Hip Arthoplasty (THR) Data
 
-In this large regional dataset (n = 86,214), we sought to examine the impact of social vulnerability on discharge destination after elective THR, and the intereaction between social vulnerability and patient race on post-surgery discharge disposition.  We used the Pennsylvania Health Care Cost Containment Council (PHC4) Database, which includes all patient discharges from 170 non-governmental acute care hospitals in the State of Pennsylvania. We identified patients who underwent elective primary THR performed in the state of Pennsylvania from 2012 to 2016.  Cases were identified using the International Classification of Diseases, Ninth Revision, Clinical Modification (ICD-9-CM) code 81.51 for primary THA from 2012 to Sept 2015, and ICD-10 codes 0SR90xx or 0SRB0xx for Q4 2015 to Q4 2016. 
+In this large regional dataset (n = 86,214), we sought to examine the impact of social vulnerability on discharge destination after elective THR, and the intereaction between social vulnerability and patient race on post-surgery discharge disposition.  We used the Pennsylvania Health Care Cost Containment Council (PHC4) Database, which includes all patient discharges from 170 non-governmental acute care hospitals in the State of Pennsylvania. We identified patients who underwent elective primary THR performed in the state of Pennsylvania from 2012 to 2016 using the International Classification of Diseases, Ninth Revision, Clinical Modification (ICD-9-CM) code 81.51 for primary THA from 2012 to Sept 2015, and ICD-10 codes 0SR90xx or 0SRB0xx for Q4 2015 to Q4 2016. 
 
 We used multivariable generalized estimating equations (GEE) to test the association between social vulnerability index (SVI) and discharge disposition, adjusting for patient and facility characteristics. We accounted for clustering by hospital facility.  We used an exchangeable working correlation structure, which even if misspecified would not affect the consistency of the estimation of the marginal regression parameters.
 
@@ -56,6 +56,7 @@ We used multivariable generalized estimating equations (GEE) to test the associa
 <br><img src="image/gis.png" alt="PHC4" style="width:60%; border:0px solid"><br>
 </center>
 
+<br>
 
 ##### 3. Spatiotemporal Trends of Lung Cancer Incidence Rates 
 

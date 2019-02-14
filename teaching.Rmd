@@ -32,6 +32,8 @@ output:
 
 * Icahn School of Medicine at Mount Sinai
     + SAS Programming: Computational Tools for Clinical Research - CLR0501, Spring 2018 <br> Instructor: Alan Weinberg <br>  [Course Info](download/sas_course.pdf)
+    
+<br>
 
 ### Poster Presentations
 * **Ho K**, Paez J, Liu B. Air Pollution’s Influence on Activity Change in Asthmatics: An
