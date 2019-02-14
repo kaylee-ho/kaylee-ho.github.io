@@ -27,8 +27,8 @@ output:
 ##### Holding regular office hours and grading assignments
 
 * Weill Cornell Medical College 
-    + Practicum on Biostatistical Consulting, Summer 2019 (Upcoming) <br> Instructor: Debra D'Angelo <br>  [Course Info](download/consulting_course.pdf)
-    + SQL Programming: Data Management Course, Spring 2019 <br> Instructor: Paul Christos <br>  [Course Info](download/sql_course.pdf)
+    + Practicum on Biostatistical Consulting, Summer 2019 (Upcoming) <br> Instructor: Paul Christos <br>  [Course Info](download/consulting_course.pdf)
+    + SQL Programming: Data Management Course, Spring 2019 <br> Instructor: Debra D'Angelo <br>  [Course Info](download/sql_course.pdf)
 
 * Icahn School of Medicine at Mount Sinai
     + SAS Programming: Computational Tools for Clinical Research - CLR0501, Spring 2018 <br> Instructor: Alan Weinberg <br>  [Course Info](download/sas_course.pdf)
@@ -41,12 +41,12 @@ Forum (NYCEF). February 16, 2018. Newark, NJ, USA.
 <br>
 
 ### Abstract Submissions
-* [Joint Statistical Meeting 2019](http://ww2.amstat.org/meetings/jsm/2019/). Spatiotemporal Trends of Stage-specific Incidence Rate of Non-Small Cell Lung Cancer (NSCLC) in New York State (1995-2015). *(Presenter)*
+* [Joint Statistical Meeting 2019](http://ww2.amstat.org/meetings/jsm/2019/): Spatiotemporal Trends of Stage-specific Incidence Rate of Non-Small Cell Lung Cancer (NSCLC) in New York State (1995-2015). *(Presenter)*
 
 
-* [The North American Association of Central Cancer Registries (NAACCR) and IACR (International Association of Cancer Registries) 2019](https://www.naaccr.org/naaccr-iacr2019/). Spatiotemporal Trends of Stage-specific Incidence Rate of Non-Small Cell Lung Cancer (NSCLC) in New York State (1995-2015). *(Presenter)*
+* [The North American Association of Central Cancer Registries (NAACCR) and IACR (International Association of Cancer Registries) 2019](https://www.naaccr.org/naaccr-iacr2019/): Spatiotemporal Trends of Stage-specific Incidence Rate of Non-Small Cell Lung Cancer (NSCLC) in New York State (1995-2015). *(Presenter)*
 
-* [European Congress of Rheumatology (EULAR) 2019](https://www.congress.eular.org/). Social Vulnerability and Discharge Disposition after Elective Total Hip Replacement? Risk-adjusted Analysis of Large Regional Dataset.  *(Co-Author)*
+* [European Congress of Rheumatology (EULAR) 2019](https://www.congress.eular.org/): Social Vulnerability and Discharge Disposition after Elective Total Hip Replacement? Risk-adjusted Analysis of Large Regional Dataset.  *(Co-Author)*
 
 <br>
 
