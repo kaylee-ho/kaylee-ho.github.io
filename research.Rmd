@@ -18,7 +18,7 @@ My current research projects are mainly in:
 
 - Analysis of observational data (working with [Said Ibrahim, MD, MBA](http://vivo.med.cornell.edu/display/cwid-sai2009))
 - Geospatial Analysis (working with [Bian Liu, PhD](https://www.mountsinai.org/profiles/bian-liu))
-- Pilot phase and interim analysis of international clinical trials (working with [Karla Ballman, PhD](http://vivo.med.cornell.edu/display/cwid-kab2053))
+- Pilot phase and interim analysis of multicenter randomized controlled clinical trials (working with [Karla Ballman, PhD](http://vivo.med.cornell.edu/display/cwid-kab2053))
 
 <br> 
 
