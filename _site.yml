@@ -11,6 +11,8 @@ navbar:
       href: teaching.html
     - text: "Resources"
       href: resource.html
+    - text: "Sample tutorial"
+      href: tutorials.html
   right:
     - icon: fa-envelope fa-lg
       href: mailto:<kah4001@med.cornell.edu>

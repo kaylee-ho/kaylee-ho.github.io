@@ -1,0 +1,329 @@
+---
+title: "Survival Analysis and Kaplan-Meier Curves Demo"
+author: "Kaylee Ho, MS"
+date: "2/14/2020"
+output: 
+  html_document:
+    toc: yes
+    toc_depth: 5
+    toc_float: yes
+    css: styles.css
+---
+
+<style>
+.list-group-item.active, .list-group-item.active:focus, .list-group-item.active:hover {
+    background-color: #B31B1B;
+}
+</style>
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+```
+
+
+```{r, include = FALSE}
+library(knitr)
+hook_output <- knit_hooks$get("output")
+knit_hooks$set(output = function(x, options) {
+  lines <- options$output.lines
+  if (is.null(lines)) {
+    return(hook_output(x, options))  # pass to default hook
+  }
+  x <- unlist(strsplit(x, "\n"))
+  more <- "..."
+  if (length(lines)==1) {        # first n lines
+    if (length(x) > lines) {
+      # truncate the output, but add ....
+      x <- c(head(x, lines), more)
+    }
+  } else {
+    x <- c(more, x[lines], more)
+  }
+  # paste these lines together
+  x <- paste(c(x, ""), collapse = "\n")
+  hook_output(x, options)
+})
+``` 
+
+# Primary Biliary Cirrhosis (PBC) Dataset
+
+This data is from the Mayo Clinic trial in primary biliary cirrhosis (PBC) of the liver conducted between 1974 and 1984. A total of 424 PBC patients, referred to Mayo Clinic during that ten-year interval, met eligibility criteria for the randomized placebo controlled trial of the drug D-Penicillamine. The first 312 cases in the data set participated in the randomized trial and contain largely complete data. The additional 112 cases did not participate in the clinical trial, but consented to have basic measurements recorded and to be followed for survival. Six of those cases were lost to follow-up shortly after diagnosis, so the data here are on an additional 106 cases as well as the 312 randomized participants.
+
+Data definitions:
+
+- age: in years
+- albumin: serum albumin (g/dl)
+- alk.phos: alkaline phosphotase (U/liter)
+- ascites: presence of ascites
+- ast: aspartate aminotransferase, once called SGOT (U/ml)
+- bili: serum bilirunbin (mg/dl)
+- chol: serum cholesterol (mg/dl)
+- copper: urine copper (ug/day)
+- edema: 0 no edema; 0.5 untreated or successfully treated; 1 edema despite diuretic therapy
+- hepato: presence of hepatomegaly or enlarged liver
+- id: case number
+- platelet: platelet count
+- protime: standardised blood clotting time
+- sex: m/f
+- spiders: blood vessel malformations in the skin
+- stage: histologic stage of disease (needs biopsy)
+- status: status at endpoint, 0/1/2 for censored, transplant, dead
+- time: number of days between registration and the earlier of death, transplantion, or study analysis in July, 1986
+- trt: 1/2/NA for D-Penicillamine, placebo, not randomized
+- trig: triglycerides (mg/dl)
+
+## R packages:
+```{r pckgs}
+library(survival)
+library(tidyverse)
+library(survminer)
+library(ggfortify)
+library(kableExtra)
+library(dotwhisker)
+```
+
+# 1. Update data for analysis
+
+Let's exclude patients who were not randomized to a drug group and recode some variables. 
+
+```{r}
+pbcData <- pbc %>% 
+  filter(!is.na(trt)) %>% 
+  select(id, time, status, trt,sex, age,bili, chol, albumin, copper, trig, protime) %>% 
+  mutate(drug  =fct_recode(factor(trt), Dpen = "1", placebo = "2"),
+         censored = fct_recode(factor(status), Censored = "0", `Censored due to liver treatment` = "1", Dead = "2"))
+
+head(pbcData)
+```
+
+
+
+# 2. Generate Kaplan-Meier estimates 
+
+We will use `survfit()` to generate overall K-M estimates and estimates across drugs:
+
+```{r}
+# Overall estimates
+surv.all <- survfit(Surv(time, censored == "Dead") ~ 1, data = pbcData)
+
+# Estimates across drug
+surv.bydrug <- survfit(Surv(time, censored == "Dead") ~ drug, data = pbcData)
+```
+
+We can use the generic `summary()` function to generate more detailed output of our K-M estimates.  By default, censored events are not included in the ouput, but can be by specifying `censored = TRUE`. 
+
+```{r ouput, echo = FALSE, results = 'hide'}
+summary(surv.all)
+
+summary(surv.bydrug, censored = TRUE)
+```
+
+
+# 3. Generate Kaplan-Meier plots 
+
+## 3.1 base R {.tabset}
+
+Using the `plot()` function in base R:
+
+### Overall 
+```{r}
+plot(surv.all, xlab = "Days", ylab = "Survival Probability", conf.int = FALSE,
+     mark.time = TRUE,
+   main = "K-M plot for PBC data")
+
+```
+
+### By Drug
+```{r}
+plot(surv.bydrug, conf.int=FALSE, xscale = 30,
+   col= "black", lty = c(1, 2), 
+   pval = TRUE, pval.coord = c(500, 0.4), 
+   mark.time = TRUE,
+   xlab = "Months", ylab = "Survival Probability",
+   main = "K-M plot for PBC data, grouped by drug")
+legend(5, 0, col = "black", lty = c(1, 2), legend = levels(pbcData$drug),
+   xjust = 0, yjust = 0)
+```
+
+## 3.2 Kaplan-Meier plot - `survminer` {.tabset}
+
+Using `ggsurveplot()` from `survminer` package:
+
+### Overall
+```{r}
+ggsurvplot(
+    fit = surv.all, 
+    xlab = "Days", 
+    ylab = "Overall survival probability",                
+    risk.table = TRUE,
+    conf.int = FALSE,
+    censor = TRUE,
+    legend = "none") + labs(title = "K-M plot for PBC data")
+```
+
+### By Drug
+```{r , fig.height = 6, fig.width = 8}
+ggsurvplot(
+    fit = surv.bydrug, 
+    xlab = "Days", 
+    ylab = "Durvival probability",                
+    pval = TRUE, pval.coord = c(500, 0.4), 
+    censor = TRUE,
+    risk.table = TRUE,
+    conf.int = FALSE) + labs(title = "K-M plot for PBC data, grouped by drug") 
+```
+
+## 3.3 Kaplan-Meier plot - `ggplot2` {.tabset}
+
+### Overall
+```{r, fig.height = 6, fig.width = 8}
+ggplot2::autoplot(surv.all, conf.int = FALSE, main = "Kaplan-Meier plot - overall", xlab = "Days") + theme_classic()
+```
+
+### By Drug
+```{r, fig.height = 6, fig.width = 8}
+ggplot2::autoplot(surv.bydrug, conf.int = FALSE, main = "Kaplan-Meier plot - by drug", xlab = "Days") + theme_classic() 
+```
+
+## 3.4 Customize plots 
+
+```{r plotres, fig.height = 6, fig.width = 8}
+res <- ggsurvplot(surv.bydrug,  size = 1,  # change line size
+           linetype = "strata", # change line type by groups
+           palette = c("#B31B1B", "#E87722"), # custom color palette
+           conf.int = FALSE, # hide confidence interval
+           pval = TRUE, # Add p-value,
+           legend = "bottom",
+           risk.table = TRUE,
+           surv.median.line = "hv",
+           xlab = "Days"
+           )
+
+res$table <- res$table + theme(axis.line = element_blank())
+res$plot <- res$plot + labs(title = "Survival Curves by Drug")
+print(res)
+```
+
+# 4. Median survival time 
+Median survival is the time corresponding to a survival probability of 0.5:
+
+```{r}
+surv_median(surv.bydrug) %>% rename(`Median Survival` = median,
+                                    `Lower 95% CI` = lower,
+                                    `Upper 95% CI` = upper,
+                                    `Drug` = strata)
+```
+
+
+# 5. Perform log-rank test
+
+We use the `survdiff()` function to perform a log-rank test -- that is, to test whether two or more survival curves are identical.
+
+- $H_0$: There is no difference in the survival function between those who were on D-Penicillamine and those who were on placebo.
+- $H_a$: There is a difference in the survival function between those who were on D-Penicillamine and those who were on placebo.
+
+
+
+```{r}
+survdiff(Surv(time, censored == "Dead") ~ drug, data = pbcData)
+```
+
+
+```{r}
+sd <- survdiff(Surv(time, censored == "Dead") ~ drug, data = pbcData)
+1 - pchisq(sd$chisq, length(sd$n) - 1) #calculate p-value
+```
+
+# 6. Multivariable Cox proportional hazards regression model
+
+We will perform a multivariable cox proportional hazards regression model using the following covariates: age, sex, and drug treatment.
+
+The Cox regression model is a semi-parametric model that can be used to fit univariable and multivariable regression models that have survival outcomes.
+
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <mi>h</mi>
+  <mo stretchy="false">(</mo>
+  <mi>t</mi>
+  <mrow class="MJX-TeXAtom-ORD">
+    <mo stretchy="false">|</mo>
+  </mrow>
+  <msub>
+    <mi>X</mi>
+    <mi>i</mi>
+  </msub>
+  <mo stretchy="false">)</mo>
+  <mo>=</mo>
+  <msub>
+    <mi>h</mi>
+    <mn>0</mn>
+  </msub>
+  <mo stretchy="false">(</mo>
+  <mi>t</mi>
+  <mo stretchy="false">)</mo>
+  <mi>exp</mi>
+  <mo>&#x2061;<!-- a --></mo>
+  <mo stretchy="false">(</mo>
+  <msub>
+    <mi>&#x03B2;<!-- β --></mi>
+    <mn>1</mn>
+  </msub>
+  <msub>
+    <mi>X</mi>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mi>i</mi>
+      <mn>1</mn>
+    </mrow>
+  </msub>
+  <mo>+</mo>
+  <mo>&#x22EF;<!-- ⋯ --></mo>
+  <mo>+</mo>
+  <msub>
+    <mi>&#x03B2;<!-- β --></mi>
+    <mi>p</mi>
+  </msub>
+  <msub>
+    <mi>X</mi>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mi>i</mi>
+      <mi>p</mi>
+    </mrow>
+  </msub>
+  <mo stretchy="false">)</mo>
+</math>
+
+```{r}
+coxph.m1 <- coxph(Surv(time, censored == "Dead") ~ age + sex + drug, data = pbcData)
+summary(coxph.m1)
+anova(coxph.m1)
+```
+
+# 7. Present results
+```{r}
+broom::tidy(
+  coxph(Surv(time, censored == "Dead") ~ age + sex + drug, data = pbcData), 
+  exp = TRUE) %>%   
+  rename(`Adjusted Hazard Ratio` = estimate,
+         `Standard Error` = std.error,
+         `P-value` = p.value,
+         `Lower 95% CI` = conf.low,
+         `Upper 95% CI` = conf.high) %>%
+         relabel_predictors(drugplacebo	 = "Placebo (vs. D-pen)",
+                            Age = "Age",
+                            sexf	 = "Female (vs. Male)"
+                              ) %>% 
+  select(term, `Adjusted Hazard Ratio`, `Lower 95% CI`, `Upper 95% CI`, `P-value`) %>% 
+  mutate_if(is.numeric, round, 2) %>% 
+  kable() %>% kable_styling("striped")
+
+```
+
+References:
+
++ Survival Analysis in R by Emily C. Zabor. https://www.emilyzabor.com/tutorials/survival_analysis_in_r_tutorial.html
++ http://biostat.mc.vanderbilt.edu/wiki/pub/Main/TheresaScott/SurvivalAnalysis.nw
++ https://folk.ntnu.no/bo/TMA4275/Download/R.tutorialDiez.pdf
+
+
+
+
+

@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Kaylee Ho, MS" />
+
+
+<title>Survival Analysis and Kaplan-Meier Curves Demo</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/lumen.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 54px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 59px;
+  margin-top: -59px;
+}
+.section h2 {
+  padding-top: 59px;
+  margin-top: -59px;
+}
+.section h3 {
+  padding-top: 59px;
+  margin-top: -59px;
+}
+.section h4 {
+  padding-top: 59px;
+  margin-top: -59px;
+}
+.section h5 {
+  padding-top: 59px;
+  margin-top: -59px;
+}
+.section h6 {
+  padding-top: 59px;
+  margin-top: -59px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html"><img id="logo" src="image/icon2.png" style="width: 100%;" /></a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="summary.html">Overview</a>
+</li>
+<li>
+  <a href="research.html">Research</a>
+</li>
+<li>
+  <a href="teaching.html">Experiences</a>
+</li>
+<li>
+  <a href="resource.html">Resources</a>
+</li>
+<li>
+  <a href="tutorials.html">Sample tutorial</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="mailto:&lt;kah4001@med.cornell.edu&gt;">
+    <span class="fa fa-envelope fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="https://www.linkedin.com/in/kayleekapoho//">
+    <span class="fa fa-linkedin fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="http://github.com/kaylee-ho">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="https://www.researchgate.net/profile/Kaylee_Ho2">
+    <span class="ai ai-researchgate ai-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Survival Analysis and Kaplan-Meier Curves Demo</h1>
+<h4 class="author">Kaylee Ho, MS</h4>
+<h4 class="date">2/14/2020</h4>
+
+</div>
+
+
+<style>
+.list-group-item.active, .list-group-item.active:focus, .list-group-item.active:hover {
+    background-color: #B31B1B;
+}
+</style>
+<div id="primary-biliary-cirrhosis-pbc-dataset" class="section level1">
+<h1>Primary Biliary Cirrhosis (PBC) Dataset</h1>
+<p>This data is from the Mayo Clinic trial in primary biliary cirrhosis (PBC) of the liver conducted between 1974 and 1984. A total of 424 PBC patients, referred to Mayo Clinic during that ten-year interval, met eligibility criteria for the randomized placebo controlled trial of the drug D-Penicillamine. The first 312 cases in the data set participated in the randomized trial and contain largely complete data. The additional 112 cases did not participate in the clinical trial, but consented to have basic measurements recorded and to be followed for survival. Six of those cases were lost to follow-up shortly after diagnosis, so the data here are on an additional 106 cases as well as the 312 randomized participants.</p>
+<p>Data definitions:</p>
+<ul>
+<li>age: in years</li>
+<li>albumin: serum albumin (g/dl)</li>
+<li>alk.phos: alkaline phosphotase (U/liter)</li>
+<li>ascites: presence of ascites</li>
+<li>ast: aspartate aminotransferase, once called SGOT (U/ml)</li>
+<li>bili: serum bilirunbin (mg/dl)</li>
+<li>chol: serum cholesterol (mg/dl)</li>
+<li>copper: urine copper (ug/day)</li>
+<li>edema: 0 no edema; 0.5 untreated or successfully treated; 1 edema despite diuretic therapy</li>
+<li>hepato: presence of hepatomegaly or enlarged liver</li>
+<li>id: case number</li>
+<li>platelet: platelet count</li>
+<li>protime: standardised blood clotting time</li>
+<li>sex: m/f</li>
+<li>spiders: blood vessel malformations in the skin</li>
+<li>stage: histologic stage of disease (needs biopsy)</li>
+<li>status: status at endpoint, 0/1/2 for censored, transplant, dead</li>
+<li>time: number of days between registration and the earlier of death, transplantion, or study analysis in July, 1986</li>
+<li>trt: 1/2/NA for D-Penicillamine, placebo, not randomized</li>
+<li>trig: triglycerides (mg/dl)</li>
+</ul>
+<div id="r-packages" class="section level2">
+<h2>R packages:</h2>
+<pre class="r"><code>library(survival)
+library(tidyverse)
+library(survminer)
+library(ggfortify)
+library(kableExtra)
+library(dotwhisker)</code></pre>
+</div>
+</div>
+<div id="update-data-for-analysis" class="section level1">
+<h1>1. Update data for analysis</h1>
+<p>Let’s exclude patients who were not randomized to a drug group and recode some variables.</p>
+<pre class="r"><code>pbcData &lt;- pbc %&gt;% 
+  filter(!is.na(trt)) %&gt;% 
+  select(id, time, status, trt,sex, age,bili, chol, albumin, copper, trig, protime) %&gt;% 
+  mutate(drug  =fct_recode(factor(trt), Dpen = &quot;1&quot;, placebo = &quot;2&quot;),
+         censored = fct_recode(factor(status), Censored = &quot;0&quot;, `Censored due to liver treatment` = &quot;1&quot;, Dead = &quot;2&quot;))
+
+head(pbcData)</code></pre>
+<pre><code>##   id time status trt sex      age bili chol albumin copper trig protime    drug
+## 1  1  400      2   1   f 58.76523 14.5  261    2.60    156  172    12.2    Dpen
+## 2  2 4500      0   1   f 56.44627  1.1  302    4.14     54   88    10.6    Dpen
+## 3  3 1012      2   1   m 70.07255  1.4  176    3.48    210   55    12.0    Dpen
+## 4  4 1925      2   1   f 54.74059  1.8  244    2.54     64   92    10.3    Dpen
+## 5  5 1504      1   2   f 38.10541  3.4  279    3.53    143   72    10.9 placebo
+## 6  6 2503      2   2   f 66.25873  0.8  248    3.98     50   63    11.0 placebo
+##                          censored
+## 1                            Dead
+## 2                        Censored
+## 3                            Dead
+## 4                            Dead
+## 5 Censored due to liver treatment
+## 6                            Dead</code></pre>
+</div>
+<div id="generate-kaplan-meier-estimates" class="section level1">
+<h1>2. Generate Kaplan-Meier estimates</h1>
+<p>We will use <code>survfit()</code> to generate overall K-M estimates and estimates across drugs:</p>
+<pre class="r"><code># Overall estimates
+surv.all &lt;- survfit(Surv(time, censored == &quot;Dead&quot;) ~ 1, data = pbcData)
+
+# Estimates across drug
+surv.bydrug &lt;- survfit(Surv(time, censored == &quot;Dead&quot;) ~ drug, data = pbcData)</code></pre>
+<p>We can use the generic <code>summary()</code> function to generate more detailed output of our K-M estimates. By default, censored events are not included in the ouput, but can be by specifying <code>censored = TRUE</code>.</p>
+</div>
+<div id="generate-kaplan-meier-plots" class="section level1">
+<h1>3. Generate Kaplan-Meier plots</h1>
+<div id="base-r" class="section level2 tabset">
+<h2>3.1 base R</h2>
+<p>Using the <code>plot()</code> function in base R:</p>
+<div id="overall" class="section level3">
+<h3>Overall</h3>
+<pre class="r"><code>plot(surv.all, xlab = &quot;Days&quot;, ylab = &quot;Survival Probability&quot;, conf.int = FALSE,
+     mark.time = TRUE,
+   main = &quot;K-M plot for PBC data&quot;)</code></pre>
+<p><img src="tutorials_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+</div>
+<div id="by-drug" class="section level3">
+<h3>By Drug</h3>
+<pre class="r"><code>plot(surv.bydrug, conf.int=FALSE, xscale = 30,
+   col= &quot;black&quot;, lty = c(1, 2), 
+   pval = TRUE, pval.coord = c(500, 0.4), 
+   mark.time = TRUE,
+   xlab = &quot;Months&quot;, ylab = &quot;Survival Probability&quot;,
+   main = &quot;K-M plot for PBC data, grouped by drug&quot;)
+legend(5, 0, col = &quot;black&quot;, lty = c(1, 2), legend = levels(pbcData$drug),
+   xjust = 0, yjust = 0)</code></pre>
+<p><img src="tutorials_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+</div>
+</div>
+<div id="kaplan-meier-plot---survminer" class="section level2 tabset">
+<h2>3.2 Kaplan-Meier plot - <code>survminer</code></h2>
+<p>Using <code>ggsurveplot()</code> from <code>survminer</code> package:</p>
+<div id="overall-1" class="section level3">
+<h3>Overall</h3>
+<pre class="r"><code>ggsurvplot(
+    fit = surv.all, 
+    xlab = &quot;Days&quot;, 
+    ylab = &quot;Overall survival probability&quot;,                
+    risk.table = TRUE,
+    conf.int = FALSE,
+    censor = TRUE,
+    legend = &quot;none&quot;) + labs(title = &quot;K-M plot for PBC data&quot;)</code></pre>
+<p><img src="tutorials_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+</div>
+<div id="by-drug-1" class="section level3">
+<h3>By Drug</h3>
+<pre class="r"><code>ggsurvplot(
+    fit = surv.bydrug, 
+    xlab = &quot;Days&quot;, 
+    ylab = &quot;Durvival probability&quot;,                
+    pval = TRUE, pval.coord = c(500, 0.4), 
+    censor = TRUE,
+    risk.table = TRUE,
+    conf.int = FALSE) + labs(title = &quot;K-M plot for PBC data, grouped by drug&quot;) </code></pre>
+<p><img src="tutorials_files/figure-html/unnamed-chunk-7-1.png" width="768" /></p>
+</div>
+</div>
+<div id="kaplan-meier-plot---ggplot2" class="section level2 tabset">
+<h2>3.3 Kaplan-Meier plot - <code>ggplot2</code></h2>
+<div id="overall-2" class="section level3">
+<h3>Overall</h3>
+<pre class="r"><code>ggplot2::autoplot(surv.all, conf.int = FALSE, main = &quot;Kaplan-Meier plot - overall&quot;, xlab = &quot;Days&quot;) + theme_classic()</code></pre>
+<p><img src="tutorials_files/figure-html/unnamed-chunk-8-1.png" width="768" /></p>
+</div>
+<div id="by-drug-2" class="section level3">
+<h3>By Drug</h3>
+<pre class="r"><code>ggplot2::autoplot(surv.bydrug, conf.int = FALSE, main = &quot;Kaplan-Meier plot - by drug&quot;, xlab = &quot;Days&quot;) + theme_classic() </code></pre>
+<p><img src="tutorials_files/figure-html/unnamed-chunk-9-1.png" width="768" /></p>
+</div>
+</div>
+<div id="customize-plots" class="section level2">
+<h2>3.4 Customize plots</h2>
+<pre class="r"><code>res &lt;- ggsurvplot(surv.bydrug,  size = 1,  # change line size
+           linetype = &quot;strata&quot;, # change line type by groups
+           palette = c(&quot;#B31B1B&quot;, &quot;#E87722&quot;), # custom color palette
+           conf.int = FALSE, # hide confidence interval
+           pval = TRUE, # Add p-value,
+           legend = &quot;bottom&quot;,
+           risk.table = TRUE,
+           surv.median.line = &quot;hv&quot;,
+           xlab = &quot;Days&quot;
+           )
+
+res$table &lt;- res$table + theme(axis.line = element_blank())
+res$plot &lt;- res$plot + labs(title = &quot;Survival Curves by Drug&quot;)
+print(res)</code></pre>
+<p><img src="tutorials_files/figure-html/plotres-1.png" width="768" /></p>
+</div>
+</div>
+<div id="median-survival-time" class="section level1">
+<h1>4. Median survival time</h1>
+<p>Median survival is the time corresponding to a survival probability of 0.5:</p>
+<pre class="r"><code>surv_median(surv.bydrug) %&gt;% rename(`Median Survival` = median,
+                                    `Lower 95% CI` = lower,
+                                    `Upper 95% CI` = upper,
+                                    `Drug` = strata)</code></pre>
+<pre><code>##           Drug Median Survival Lower 95% CI Upper 95% CI
+## 1    drug=Dpen            3282         2583           NA
+## 2 drug=placebo            3428         3090           NA</code></pre>
+</div>
+<div id="perform-log-rank-test" class="section level1">
+<h1>5. Perform log-rank test</h1>
+<p>We use the <code>survdiff()</code> function to perform a log-rank test – that is, to test whether two or more survival curves are identical.</p>
+<ul>
+<li><span class="math inline">\(H_0\)</span>: There is no difference in the survival function between those who were on D-Penicillamine and those who were on placebo.</li>
+<li><span class="math inline">\(H_a\)</span>: There is a difference in the survival function between those who were on D-Penicillamine and those who were on placebo.</li>
+</ul>
+<pre class="r"><code>survdiff(Surv(time, censored == &quot;Dead&quot;) ~ drug, data = pbcData)</code></pre>
+<pre><code>## Call:
+## survdiff(formula = Surv(time, censored == &quot;Dead&quot;) ~ drug, data = pbcData)
+## 
+##                N Observed Expected (O-E)^2/E (O-E)^2/V
+## drug=Dpen    158       65     63.2    0.0502     0.102
+## drug=placebo 154       60     61.8    0.0513     0.102
+## 
+##  Chisq= 0.1  on 1 degrees of freedom, p= 0.7</code></pre>
+<pre class="r"><code>sd &lt;- survdiff(Surv(time, censored == &quot;Dead&quot;) ~ drug, data = pbcData)
+1 - pchisq(sd$chisq, length(sd$n) - 1) #calculate p-value</code></pre>
+<pre><code>## [1] 0.7497925</code></pre>
+</div>
+<div id="multivariable-cox-proportional-hazards-regression-model" class="section level1">
+<h1>6. Multivariable Cox proportional hazards regression model</h1>
+<p>We will perform a multivariable cox proportional hazards regression model using the following covariates: age, sex, and drug treatment.</p>
+<p>The Cox regression model is a semi-parametric model that can be used to fit univariable and multivariable regression models that have survival outcomes.</p>
+<p><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"> <mi>h</mi> <mo stretchy="false">(</mo> <mi>t</mi> <mrow class="MJX-TeXAtom-ORD"> <mo stretchy="false">|</mo> </mrow> <msub> <mi>X</mi> <mi>i</mi> </msub> <mo stretchy="false">)</mo> <mo>=</mo> <msub> <mi>h</mi> <mn>0</mn> </msub> <mo stretchy="false">(</mo> <mi>t</mi> <mo stretchy="false">)</mo> <mi>exp</mi> <mo>⁡<!-- a --></mo> <mo stretchy="false">(</mo> <msub> <mi>β<!-- β --></mi> <mn>1</mn> </msub> <msub> <mi>X</mi> <mrow class="MJX-TeXAtom-ORD"> <mi>i</mi> <mn>1</mn> </mrow> </msub> <mo>+</mo> <mo>⋯<!-- ⋯ --></mo> <mo>+</mo> <msub> <mi>β<!-- β --></mi> <mi>p</mi> </msub> <msub> <mi>X</mi> <mrow class="MJX-TeXAtom-ORD"> <mi>i</mi> <mi>p</mi> </mrow> </msub> <mo stretchy="false">)</mo> </math></p>
+<pre class="r"><code>coxph.m1 &lt;- coxph(Surv(time, censored == &quot;Dead&quot;) ~ age + sex + drug, data = pbcData)
+summary(coxph.m1)</code></pre>
+<pre><code>## Call:
+## coxph(formula = Surv(time, censored == &quot;Dead&quot;) ~ age + sex + 
+##     drug, data = pbcData)
+## 
+##   n= 312, number of events= 125 
+## 
+##                  coef exp(coef)  se(coef)      z Pr(&gt;|z|)    
+## age          0.038820  1.039583  0.008995  4.316 1.59e-05 ***
+## sexf        -0.337659  0.713438  0.238873 -1.414    0.157    
+## drugplacebo  0.062647  1.064651  0.181853  0.344    0.730    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+##             exp(coef) exp(-coef) lower .95 upper .95
+## age            1.0396     0.9619    1.0214     1.058
+## sexf           0.7134     1.4017    0.4467     1.139
+## drugplacebo    1.0647     0.9393    0.7454     1.521
+## 
+## Concordance= 0.623  (se = 0.026 )
+## Likelihood ratio test= 22.53  on 3 df,   p=5e-05
+## Wald test            = 23.22  on 3 df,   p=4e-05
+## Score (logrank) test = 23.43  on 3 df,   p=3e-05</code></pre>
+<pre class="r"><code>anova(coxph.m1)</code></pre>
+<pre><code>## Analysis of Deviance Table
+##  Cox model: response is Surv(time, censored == &quot;Dead&quot;)
+## Terms added sequentially (first to last)
+## 
+##       loglik   Chisq Df Pr(&gt;|Chi|)    
+## NULL -639.97                          
+## age  -629.71 20.5053  1  5.947e-06 ***
+## sex  -628.76  1.9082  1     0.1672    
+## drug -628.70  0.1186  1     0.7306    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+</div>
+<div id="present-results" class="section level1">
+<h1>7. Present results</h1>
+<pre class="r"><code>broom::tidy(
+  coxph(Surv(time, censored == &quot;Dead&quot;) ~ age + sex + drug, data = pbcData), 
+  exp = TRUE) %&gt;%   
+  rename(`Adjusted Hazard Ratio` = estimate,
+         `Standard Error` = std.error,
+         `P-value` = p.value,
+         `Lower 95% CI` = conf.low,
+         `Upper 95% CI` = conf.high) %&gt;%
+         relabel_predictors(drugplacebo  = &quot;Placebo (vs. D-pen)&quot;,
+                            Age = &quot;Age&quot;,
+                            sexf     = &quot;Female (vs. Male)&quot;
+                              ) %&gt;% 
+  select(term, `Adjusted Hazard Ratio`, `Lower 95% CI`, `Upper 95% CI`, `P-value`) %&gt;% 
+  mutate_if(is.numeric, round, 2) %&gt;% 
+  kable() %&gt;% kable_styling(&quot;striped&quot;)</code></pre>
+<table class="table table-striped" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+term
+</th>
+<th style="text-align:right;">
+Adjusted Hazard Ratio
+</th>
+<th style="text-align:right;">
+Lower 95% CI
+</th>
+<th style="text-align:right;">
+Upper 95% CI
+</th>
+<th style="text-align:right;">
+P-value
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Placebo (vs. D-pen)
+</td>
+<td style="text-align:right;">
+1.06
+</td>
+<td style="text-align:right;">
+0.75
+</td>
+<td style="text-align:right;">
+1.52
+</td>
+<td style="text-align:right;">
+0.73
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Female (vs. Male)
+</td>
+<td style="text-align:right;">
+0.71
+</td>
+<td style="text-align:right;">
+0.45
+</td>
+<td style="text-align:right;">
+1.14
+</td>
+<td style="text-align:right;">
+0.16
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+age
+</td>
+<td style="text-align:right;">
+1.04
+</td>
+<td style="text-align:right;">
+1.02
+</td>
+<td style="text-align:right;">
+1.06
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+</tbody>
+</table>
+<p>References:</p>
+<ul>
+<li>Survival Analysis in R by Emily C. Zabor. <a href="https://www.emilyzabor.com/tutorials/survival_analysis_in_r_tutorial.html" class="uri">https://www.emilyzabor.com/tutorials/survival_analysis_in_r_tutorial.html</a></li>
+<li><a href="http://biostat.mc.vanderbilt.edu/wiki/pub/Main/TheresaScott/SurvivalAnalysis.nw" class="uri">http://biostat.mc.vanderbilt.edu/wiki/pub/Main/TheresaScott/SurvivalAnalysis.nw</a></li>
+<li><a href="https://folk.ntnu.no/bo/TMA4275/Download/R.tutorialDiez.pdf" class="uri">https://folk.ntnu.no/bo/TMA4275/Download/R.tutorialDiez.pdf</a></li>
+</ul>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3,h4,h5",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
