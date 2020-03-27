@@ -27,8 +27,9 @@ output:
 ##### Holding regular office hours and grading assignments
 
 * Weill Cornell Medical College 
-    + Practicum on Biostatistical Consulting, Summer 2019 (Upcoming) <br> Instructor: Paul Christos <br>  [Course Info](download/consulting_course.pdf)
-    + SQL Programming: Data Management Course, Spring 2019 <br> Instructor: Debra D'Angelo <br>  [Course Info](download/sql_course.pdf)
+    + Practicum on Biostatistical Consulting, Spring 2020  <br> Instructor: Paul Christos, DrPH <br>   [Course Info](download/MPII2020.pdf)
+    + Biostatistics I, Fall 2020 <br> Instructor: Karla Ballman, PhD <br>  [Course Info](download/biostats1.pdf)
+    + SQL Programming: Data Management Course, Spring 2019 <br> Instructor: Debra D'Angelo, MS <br>  [Course Info](download/sql_course.pdf)
 
 * Icahn School of Medicine at Mount Sinai
     + SAS Programming: Computational Tools for Clinical Research - CLR0501, Spring 2018 <br> Instructor: Alan Weinberg <br>  [Course Info](download/sas_course.pdf)

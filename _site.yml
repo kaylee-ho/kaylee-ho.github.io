@@ -11,7 +11,7 @@ navbar:
       href: teaching.html
     - text: "Resources"
       href: resource.html
-    - text: "Sample tutorial"
+    - text: "Sample R tutorial"
       href: tutorials.html
   right:
     - icon: fa-envelope fa-lg
