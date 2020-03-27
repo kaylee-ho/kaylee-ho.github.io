@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 
 <head>
 
 <meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
 
@@ -75,9 +75,7 @@ h6 {
 
 <link rel="stylesheet" href="styles.css" type="text/css" />
 
-</head>
 
-<body>
 
 <style type = "text/css">
 .main-container {
@@ -91,7 +89,6 @@ code {
 }
 img {
   max-width:100%;
-  height: auto;
 }
 .tabbed-pane {
   padding-top: 12px;
@@ -196,8 +193,6 @@ $(document).ready(function () {
 });
 </script>
 
-<div class="container-fluid main-container">
-
 <!-- tabsets -->
 
 <style type="text/css">
@@ -242,6 +237,7 @@ $(document).ready(function () {
   border: none;
   display: inline-block;
   border-radius: 4px;
+  background-color: transparent;
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li {
@@ -254,48 +250,9 @@ $(document).ready(function () {
 }
 </style>
 
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-
-$(document).ready(function () {
-  $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
-  });
-});
-</script>
-
 <!-- code folding -->
 
 
-
-<script>
-$(document).ready(function ()  {
-
-    // move toc-ignore selectors from section div to header
-    $('div.section.toc-ignore')
-        .removeClass('toc-ignore')
-        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
-
-    // establish options
-    var options = {
-      selectors: "h1,h2,h3,h4,h5",
-      theme: "bootstrap3",
-      context: '.toc-content',
-      hashGenerator: function (text) {
-        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
-      },
-      ignoreSelector: ".toc-ignore",
-      scrollTo: 0
-    };
-    options.showAndHide = false;
-    options.smoothScroll = false;
-
-    // tocify
-    var toc = $("#TOC").tocify(options).data("toc-tocify");
-});
-</script>
 
 <style type="text/css">
 
@@ -309,6 +266,12 @@ $(document).ready(function ()  {
 }
 }
 
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
 
 .toc-content {
   padding-left: 30px;
@@ -344,8 +307,6 @@ div.tocify {
 
 .tocify-subheader .tocify-item {
   font-size: 0.90em;
-  padding-left: 25px;
-  text-indent: 0;
 }
 
 .tocify .list-group-item {
@@ -360,6 +321,16 @@ div.tocify {
 }
 
 </style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
 
 <!-- setup 3col/9col grid for toc_float and main content  -->
 <div class="row-fluid">
@@ -396,6 +367,9 @@ div.tocify {
 </li>
 <li>
   <a href="resource.html">Resources</a>
+</li>
+<li>
+  <a href="tutorials.html">Sample tutorial</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -438,14 +412,14 @@ div.tocify {
 
 
 <p><link rel="stylesheet" href="academicons/css/academicons.min.css"/></p>
-<div id="current-projects" class="section level3">
-<h3>Current Projects</h3>
+<div id="research-interests" class="section level3">
+<h3>Research Interests</h3>
 <p><br></p>
 <p>My current research projects are mainly in:</p>
 <ul>
 <li>Analysis of observational data (working with <a href="http://vivo.med.cornell.edu/display/cwid-sai2009">Said Ibrahim, MD, MBA</a>)</li>
 <li>Geospatial Analysis (working with <a href="https://www.mountsinai.org/profiles/bian-liu">Bian Liu, PhD</a>)</li>
-<li>Pilot phase and interim analysis of international clinical trials (working with <a href="http://vivo.med.cornell.edu/display/cwid-kab2053">Karla Ballman, PhD</a>)</li>
+<li>Pilot phase and interim analysis of multicenter randomized controlled clinical trials (working with <a href="http://vivo.med.cornell.edu/display/cwid-kab2053">Karla Ballman, PhD</a>)</li>
 </ul>
 <p><br></p>
 </div>
@@ -463,18 +437,19 @@ div.tocify {
 <p><br></p>
 </div>
 </div>
-<div id="current-projects-1" class="section level3">
+<div id="current-projects" class="section level3">
 <h3>Current Projects</h3>
-<div id="data-analysis-of-total-hip-arthoplasty-data" class="section level5">
-<h5>2. Data Analysis of Total Hip Arthoplasty Data</h5>
-<p>In this large regional dataset (n = 86,214), we sought to examine the impact of social vulnerability on discharge destination after elective THR, and the intereaction between social vulnerability and patient race on post-surgery discharge disposition. We used the Pennsylvania Health Care Cost Containment Council (PHC4) Database, which includes all patient discharges from 170 non-governmental acute care hospitals in the State of Pennsylvania. We identified patients who underwent elective primary THR performed in the state of Pennsylvania from 2012 to 2016. Cases were identified using the International Classification of Diseases, Ninth Revision, Clinical Modification (ICD-9-CM) code 81.51 for primary THA from 2012 to Sept 2015, and ICD-10 codes 0SR90xx or 0SRB0xx for Q4 2015 to Q4 2016.</p>
+<div id="data-analysis-of-total-hip-arthroplasty-tha-data" class="section level5">
+<h5>1. Data Analysis of Total Hip Arthroplasty (THA) Data</h5>
+<p>In this large regional dataset (n = 86,214), we sought to examine the impact of social vulnerability on discharge destination after elective THA, and the interaction between social vulnerability and patient race on post-surgery discharge disposition. We used the Pennsylvania Health Care Cost Containment Council (PHC4) Database, which includes all patient discharges from 170 non-governmental acute care hospitals in the State of Pennsylvania. We identified patients who underwent elective primary THA performed in the state of Pennsylvania from 2012 to 2016 using the International Classification of Diseases, Ninth Revision, Clinical Modification (ICD-9-CM) code 81.51 for primary THA from 2012 to Sept 2015, and ICD-10 codes 0SR90xx or 0SRB0xx for Q4 2015 to Q4 2016.</p>
 <p>We used multivariable generalized estimating equations (GEE) to test the association between social vulnerability index (SVI) and discharge disposition, adjusting for patient and facility characteristics. We accounted for clustering by hospital facility. We used an exchangeable working correlation structure, which even if misspecified would not affect the consistency of the estimation of the marginal regression parameters.</p>
 <center>
 <br><img src="image/gis.png" alt="PHC4" style="width:60%; border:0px solid"><br>
 </center>
+<p><br></p>
 </div>
 <div id="spatiotemporal-trends-of-lung-cancer-incidence-rates" class="section level5">
-<h5>3. Spatiotemporal Trends of Lung Cancer Incidence Rates</h5>
+<h5>2. Spatiotemporal Trends of Lung Cancer Incidence Rates</h5>
 <p><strong>Spatiotemporal Trends of Stage-specific Incidence Rate of Non-Small Cell Lung Cancer (NSCLC) in New York State (1995-2015)</strong></p>
 <p>Cancer stage at diagnosis of Non-Small Cell Lung Cancer (NSCLC) provides important information about the treatment options and prognosis. Early detection is critical for early stage NSCLC patients as treatment options with curative intent are available. We aim to investigate the spatiotemporal variations in NSCLC incidence rates in New York State (NYS). We used a scan-statistic approach to assess spatial clustering of incidence rates. We obtained county level age-adjusted incidence NSCLC rates and socioeconomic index in NYS between 1995 and 2015 from SEER*Stat maintained by the National Cancer Institute. We conducted weighted space-only normal model using the inverse of the age-adjusted rate standard error, and unweighted, space-time normal model, adjusting for the Yost Index. Models were ran separately for overall and each cancer stage. Significant (p&lt; 0.01) high/low incidence clusters were detected, with variations seen in the cluster sizes and locations between space-only vs. space-time models. The results may be useful for identifying areas where further investigation and targeted NSCLC prevention and interventions, such as lung cancer screening programs, are needed.</p>
 <center>
@@ -491,7 +466,7 @@ div.tocify {
 <h5>1. Race and Discharge Disposition after Elective Hip Replacment</h5>
 <p><strong>Race and Discharge Disposition after Elective Hipe Replacment: Coarsened Exact Matching analysis of a large regional dataset.</strong></p>
 <p>Bella Mehta, <strong>Kaylee Ho</strong>, Jasvinder Singh, Michael Parks, Debra D’Angelo, Said A. Ibrahim</p>
-<p>Retrospective large regional database analysis. We used the Pennsylvania Health Care Cost Containment Council (PHC4) Database to identify total hip arthoplasty patients from 2012-2016. We examined the relationship between patient race and discharge disposition (Home, Home Health Care(HHC), Skilled Nursing Facility(SNF), Inpatient Rehabilitation Facility(IRF)) following elective primary THA; and whether discharge disposition is associated with re-admission to acute care hospital within 90-days. We used multinomial generalized linear mixed models (GLMM), accounting for clustering by hospital facility.</p>
+<p>Retrospective large regional database analysis. We used the Pennsylvania Health Care Cost Containment Council (PHC4) Database to identify total hip arthroplasty patients from 2012-2016. We examined the relationship between patient race and discharge disposition (Home, Home Health Care(HHC), Skilled Nursing Facility(SNF), Inpatient Rehabilitation Facility(IRF)) following elective primary THA; and whether discharge disposition is associated with re-admission to acute care hospital within 90-days. We used multinomial generalized linear mixed models (GLMM), accounting for clustering by hospital facility.</p>
 <p>For our secondary analysis, the relationship between 90-day readmission and discharge destination was assessed using binary logistic regression. Unadjusted and adjusted odds ratios (ORs) of hospital readmission at 90 days were estimated. Multivariable models were adjusted for the same patient-level and facility-level variables from the primary outcome analysis. We used Corsened exact matching(CEM) to further account for unbalanced covariates in our readmission analyses. After matching, the effect of discharge distination on 90-day readmission was evaluated using a binary logistic model.</p>
 <center>
 <br><img src="image/cem.PNG" alt="CEM" style="width:100%; border:0px solid"><br>
@@ -504,10 +479,10 @@ div.tocify {
 <p><br></p>
 <p>Other (selected) projects I am currently working on are:</p>
 <p><br></p>
-<div id="shangring-vs.mogen-clamp-for-early-infant-male-circumcision-in-sub-saharan-africa" class="section level5">
+<div id="shangring-vs.-mogen-clamp-for-early-infant-male-circumcision-in-sub-saharan-africa" class="section level5">
 <h5>1. ShangRing vs. Mogen Clamp for Early Infant Male Circumcision in sub-Saharan Africa</h5>
 <p><strong>Data and Safety Monitoring Board (DSMB) Evaluation</strong></p>
-<p>Conducting initial and interim analysis for the pilot phase of this clinical trial. The goal is to determine if the AE rate using the ShangRing is not inferior to that for the control i.e. the Mogen clamp. The anticipated moderate/severe AE rate is 2%. We anticipate that the benefits of ShangRing in terms of convenience and acceptability will allow a non-inferiority margin of 2% (absolute). A formal interim analysis was conducted after the first 100 circumcisions have been completed in the pilot phase. Study recruitment will be suspended for the interim analysis. The analysis will be for futility only. If after 100 infants in the pilot phase and followed for 42 days it is found that the (non-inferiority) p-value is 0.97 or greater (corresponding to a z-statistic of 1.91 or greater) the trial will be recommended to stop due to futility.</p>
+<p>Conducting initial and interim analysis for the pilot phase of this clinical trial. The goal is to determine if the AE rate using the ShangRing is not inferior to that for the control i.e. the Mogen clamp. The anticipated moderate/severe AE rate is 2%. We anticipate that the benefits of ShangRing in terms of convenience and acceptability will allow a non-inferiority margin of 2% (absolute). A formal interim analysis was conducted after the first 100 circumcisions have been completed in the pilot phase. Study recruitment will be suspended for the interim analysis. The analysis will be for futility only.</p>
 <p><br></p>
 </div>
 <div id="roma-trial" class="section level5">
@@ -536,6 +511,49 @@ $(document).ready(function () {
 });
 
 
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3,h4,h5",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = false;
+    options.smoothScroll = false;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
 </script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
