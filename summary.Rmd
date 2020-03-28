@@ -1,5 +1,7 @@
 ---
 title: 'Overview'
+output:
+  html_document 
 ---
 
 <link rel="stylesheet" href="academicons/css/academicons.min.css"/>

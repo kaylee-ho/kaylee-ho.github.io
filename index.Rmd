@@ -1,8 +1,10 @@
 ---
-title: "<center> Kaylee Ho, M.S. </center>"
+title: "Kaylee Ho, MS"
 output:
   html_document
 ---
+
+<center> Kaylee Ho, M.S. </center>"
 
 <center> Research Biostatistician at Weill Cornell Medical College </center>
 
