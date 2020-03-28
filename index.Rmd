@@ -1,5 +1,7 @@
 ---
-title: <center> Kaylee Ho, M.S. </center>
+title: "<center> Kaylee Ho, M.S. </center>"
+output:
+  html_document
 ---
 
 <center> Research Biostatistician at Weill Cornell Medical College </center>
