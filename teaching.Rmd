@@ -15,7 +15,7 @@ output:
 
 <center>
 <br>
-<img src="image/workshop.jpg" alt="teaching" style="width:65%; border:0px solid">
+<img src="image/workshop.jpg" alt="teaching summer 2019" style="width:65%; border:0px solid">
 <br>
 
 </center>
