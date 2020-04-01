@@ -15,12 +15,13 @@ output:
 
 <center>
 <br>
-<img src="image/poster.jpg" alt="teaching" style="width:50%; border:0px solid">
+<img src="image/workshop.jpg" alt="teaching" style="width:65%; border:0px solid">
 <br>
 
 </center>
 
 <br><br>
+
 
 ### Teaching Assistant Positions
 
@@ -34,7 +35,13 @@ output:
 * Icahn School of Medicine at Mount Sinai
     + SAS Programming: Computational Tools for Clinical Research - CLR0501, Spring 2018 <br> Instructor: Alan Weinberg <br>  [Course Info](download/sas_course.pdf)
     
-<br>
+
+### Volunteer Positions
+
+* Weill Cornell Medical College 
+    + Instructor, 2019 Summer Biostatistics for Biomedical Research <br>
+    Travelers Summer Research Fellowship Program <br>  
+    
 
 ### Poster Presentations
 * **Ho K**, Paez J, Liu B. Air Pollution’s Influence on Activity Change in Asthmatics: An
